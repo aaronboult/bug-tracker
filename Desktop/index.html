@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html style="min-height: 100%;">
+    <head>
+        <script src="https://kit.fontawesome.com/a35d912e78.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+        <script>window.$ = window.jQuery = require("jquery")</script>
+    </head>
+    <body style="min-height: 100vh;">
+
+        <section>
+
+            <header>
+                <div>
+                    <h1 style="text-align: center;">Bug Tracker</h1>
+                </div>
+            </header>
+
+            <article>
+                <div id="ContentBody" style="overflow: hidden;height: 100%;">
+                    <div id="TabSelection" class="TabSelection">
+                        <div class="Tab">
+                            Tab
+                        </div>
+                    </div>
+
+                    <div class="MainContent">
+                        <div>
+                            <h3 id="TabTitle" style="text-align: center;">Title</h3>
+                        </div>
+                        <div id="MainContent">
+                            <div style="margin-bottom: 2vw;">
+                                <h5>Description</h5>
+                                <p id="Main_Description" class="ChangeableText" style="width: auto;padding: 0.3vw;">A sample description</p>
+                                <input maxlength="86" id="Main_Description_Input" type="text" style="display: none;display: inline;font-family: 'Courier New', Courier, monospace;" class="NewItemTextbox">
+                            </div>
+                            <div style="margin-bottom: 0.7vw;padding-top: 0.7vw;border-bottom: 1px solid rgba(255, 255, 255, 0.38);border-top: 1px solid rgba(255, 255, 255, 0.38);">
+                                <h5>Directories</h5>
+                                <ul id="Main_Files">
+                                    <button id="Main_AddFileButton" class="btn btn-secondary" style="margin-top: 1.5vh;" onclick="ipcRenderer.send('select-file', GetLoadedFiles());">Add Directory</button>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="TabContent">
+                            <div id="Validation" class="form-check" style="margin-bottom: 0.7vw;">
+                                <input type="checkbox" id="ValidationCheck" class="form-check-input">
+                                <label for="ValidationCheck" class="form-check-label">Input Validation Requires Assessing</label>
+                            </div>
+                            <div id="Testing" class="form-check" style="margin-bottom: 0.7vw;">
+                                <input type="checkbox" id="TestingCheck" class="form-check-input">
+                                <label for="TestingCheck" class="form-check-label">Further Testing Is Necessary</label>
+                            </div>
+                            <div id="Tasks" style="margin-bottom: 0.7vw;padding-top: 0.7vw;border-bottom: 1px solid rgba(255, 255, 255, 0.38);border-top: 1px solid rgba(255, 255, 255, 0.38);">
+                                <h5>Tasks:</h5>
+                                <ul id="Tasks-List"></ul>
+                            </div>
+                            <div id="ImportantInformation" style="margin-bottom: 0.7vw;border-bottom: 1px solid rgba(255, 255, 255, 0.38);">
+                                <h5>Important Information:</h5>
+                                <ul id="ImportantInformation-List"></ul>
+                            </div>
+                        </div>
+                        <div class="DeleteButtonContainer">
+                            <button class="btn btn-danger" id="DeleteButton"></button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        
+            <aside>
+                <div id="ProjectSelection" class="ProjectPanel"></div>
+            </aside>
+
+            <footer class="FooterControls">
+                <div class="FooterControl">
+                    <button class="btn btn-light" onclick="AddNewProject();">Add New Project</button>
+                </div>
+                <div class="FooterControl">
+                    <button style="float: right;" class="btn btn-light" onclick="AddNewTab();">Add New Tab</button>
+                </div>
+            </footer>
+
+        </section>
+
+        <div class="Confirmation-Backboard" id="Confirmation-Backboard" style="display: none;"></div>
+
+        <div class="Confirmation" id="Confirmation-Container" style="display: none;">
+            <h4 id="Confirmation-Message" style="text-align: center;">Message</h4>
+            <div style="display: flex;justify-content: center;margin-top: 4vh;">
+                <button id="Confirmation-Cancel" class="btn btn-danger" style="margin: auto;margin-right: 3vw;width: 25vw;">Cancel</button>
+                <button id="Confirmation-Confirm" class="btn btn-success" style="margin: auto;margin-left: 3vw;width: 20vw;">Confirm</button>
+            </div>
+        </div>
+
+        <script src="page.js"></script>
+
+    </body>
+</html>

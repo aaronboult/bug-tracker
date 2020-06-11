@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" style="min-height: 100%;">
+    <head>
+        <title>Login - Bug Tracker</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>window.$ = window.jQuery = require("jquery")</script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <style> *{ color: white; } </style>
+    </head>
+    <body style="height: 100vh;display: flex;flex-direction: column;background-color: #464646;">
+        <div style="width: 55vw;margin: auto;padding: 2.5vw;background-color: #272727;border-radius: 1vw;">
+            <div id="alert" class="alert alert-danger" role="alert" style="margin: auto;margin-bottom: 2em;display: none;">
+                Error 429: You Have Exceeded The Maximum Number Of Requests
+                <button id="alertclose" type="button" class="close" onclick="ToggleAlert();" disabled><span aria-hidden="true" style="color: black;">&times;</span></button>
+            </div>
+            <h2 style="text-align: center;">Login</h2>
+            <small id="attempt" class="form-text text-muted" style="display: none;">Your Username Or Password Is Incorrect. Please Try Again.</small>
+            <form onsubmit="TryLogin();return false;">
+                <div class="form-group">
+                    <label for="Username">Username</label>
+                    <input type="text" id="Username" class="form-control" style="border-color: black;">
+                    <small id="usernamelength" class="form-text" style="display: none;color: #ff8e8e;">This field cannot be blank.</small>
+                </div>
+                <div class="form-group">
+                    <label for="Username">Password</label>
+                    <input type="password" id="Password" class="form-control" style="border-color: black;">
+                    <small id="passwordlength" class="form-text" style="display: none;color: #ff8e8e;">This field cannot be blank.</small>
+                </div>
+                <div style="margin: auto;width: 30%;">
+                    <button id="Submit" type="submit" class="btn btn-success" style="width: 100%;">Login</button>
+                </div>
+            </form>
+        </div>
+    </body>
+
+    <script>
+        
+        const { ipcRenderer } = require("electron");
+
+        ipcRenderer.on("login", HandleLogin);
+
+        function TryLogin(){
+
+            let username = $("#Username").val();
+
+            let password = $("#Password").val();
+
+            $("#attempt").css("display", "none");
+
+            $("#usernamelength").css("display", !username.length ? "block" : "none");
+
+            $("#passwordlength").css("display", !password.length ? "block" : "none");
+
+            ErrorStyling(!(username.length && password.length));
+
+            if (username.length && password.length){
+
+                ToggleLoginForm(true);
+
+                ipcRenderer.send("login", {"username": username, "password": password});
+
+            }
+
+        }
+            
+        function HandleLogin(event, result){
+            
+            if (result === "__ERROR__"){
+                
+                ToggleAlert();
+                
+                return;
+                
+            }
+
+            switch (result["result"]){
+
+                case "FAILED":
+
+                    $("#attempt").css("display", "block");
+                    
+                    setTimeout(() => ToggleLoginForm(false), 5000);
+
+                    ErrorStyling(true);
+
+                    break;
+                
+                default:
+
+                    ToggleLoginForm(false);
+                    
+                    ErrorStyling(false);
+
+            }
+
+        }
+
+        function ErrorStyling(isError){
+            
+            $("#Username").css("border-color", isError ? "rgba(255, 0, 0, 0.5)" : "black");
+            $("#Password").css("border-color", isError ? "rgba(255, 0, 0, 0.5)" : "black");
+            
+            $("#Username").css("background-color", isError ? "rgb(255, 195, 195)" : "white");
+            $("#Password").css("background-color", isError ? "rgb(255, 195, 195)" : "white");
+
+        }
+
+        function ToggleLoginForm(disabled){
+
+            $("#Username").prop("disabled", disabled);
+
+            $("#Password").prop("disabled", disabled);
+
+            $("#Submit").prop("disabled", disabled);
+
+        }
+
+        function ToggleAlert(){
+
+            if ($("#alertclose").prop("disabled") === true){
+
+                ErrorStyling(true);
+
+            }
+
+            $("#alert").slideToggle();
+            
+            $("#alertclose").prop("disabled", !$("#alertclose").prop("disabled"));
+
+        }
+
+    </script>
+</html>

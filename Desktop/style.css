@@ -1,0 +1,245 @@
+*{
+    color: white;
+    user-select: none;
+}
+
+body{
+    background-color: #252525;
+}
+
+section{
+    min-height: 100vh;
+    display: grid;
+    grid-template-areas: "Header Header"
+                        "Sidebar Content"
+                        "Footer Footer";
+    grid-template-columns: 25vw 75vw;
+    grid-template-rows: 15vh 70vh 15vh;
+}
+
+header{
+    padding: 1vw;
+    grid-area: Header;
+}
+
+article{
+    padding: 1vw;
+    margin: 0.6vw;
+    background-color: rgb(58, 58, 58);
+    border-radius: 0.4vw;
+    grid-area: Content;
+}
+
+aside{
+    padding: 1vw;
+    margin: 0.6vw;
+    grid-area: Sidebar;
+    background-color: rgb(70, 70, 70);
+}
+
+/* Confirmation Popup */
+
+.Confirmation{
+    top: 0px;
+    position: fixed;
+    width: 60vw;
+    height: 40vh;
+    background: #424242;
+    padding: 2vw;
+    margin-left: 20vw;
+    margin-top: 30vh;
+}
+
+.Confirmation-Backboard{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(31, 31, 31, 0.85);
+}
+
+/* Main Page Contents */
+
+.MainContent{
+    padding: 1vw;
+    height: 85%;
+    overflow: auto;
+}
+
+.DeleteButton{
+    color: rgb(255, 126, 126);
+    margin-left: 1vw;
+    transition: all .3s ease;
+}
+
+.DeleteButton:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.NewItemTextbox{
+    transition: all .1s linear;
+    color: white;
+    border-radius: 0.3vw;
+    border: 1px solid #ababab;
+    border-style: inset;
+    width: 60%;
+    background: #848484;
+    padding: 0.1vw;
+    padding-left: 0.5vw;
+    margin-top: 0.5vw;
+}
+
+#Main_Files li a{
+    transition: color .3s ease;
+    color: rgb(231, 254, 255);
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+#Main_Files li a:hover{
+    color: rgb(187, 252, 255);
+}
+
+/* Main Project Selection */
+
+.ProjectSelect{
+    padding: 0.7vw;
+    border-radius: 0.4vw;
+    margin: 0.6vw;
+    text-align: center;
+    background-color: rgb(46, 46, 46);
+    transition: all .3s ease;
+}
+
+.ProjectSelect:hover{
+    cursor: pointer;
+    transform: scale(1.025);
+    background-color: rgb(90, 90, 90);
+}
+
+.ProjectSelect:active{
+    transform: scale(1.0125);
+}
+
+.ProjectSelect[Opened='true']{
+    background-color: rgb(36, 36, 36);
+}
+
+.DeleteButtonContainer{
+    margin: 1vw;
+    padding: 0.5vw;
+}
+
+/* Tabs For Sub-Tasks Within Projects */
+
+.TabSelection{
+    padding: 0.6vw;
+    border-radius: 0.4vw;
+    display: flex;
+    background-color: rgb(70, 70, 70);
+}
+
+.Tab{
+    text-align: center;
+    display: inline-block;
+    width: auto;
+    background-color: rgb(45, 45, 45);
+    padding: 0.3vw;
+    border-radius: 0.2vw 0vw 0vw 0.2vw;
+    transition: all .3s ease;
+}
+
+.Tab:first-child{
+    border-top-left-radius: 0.2vw;
+    border-bottom-left-radius: 0.2vw;
+}
+
+.Tab:last-child{
+    border-top-right-radius: 0.2vw;
+    border-bottom-right-radius: 0.2vw;
+}
+
+/* #region Sizing the tabs */
+
+.Tab:first-child:nth-last-child(1) {
+	width: 100%;
+}
+
+.Tab:first-child:nth-last-child(2),
+.Tab:first-child:nth-last-child(2) ~ .Tab {
+	width: 50%;
+}
+
+.Tab:first-child:nth-last-child(3),
+.Tab:first-child:nth-last-child(3) ~ .Tab {
+	width: 33.3333%;
+}
+
+.Tab:first-child:nth-last-child(4),
+.Tab:first-child:nth-last-child(4) ~ .Tab {
+	width: 25%;
+}
+
+.Tab:first-child:nth-last-child(5),
+.Tab:first-child:nth-last-child(5) ~ .Tab {
+	width: 25%;
+}
+
+.Tab:first-child:nth-last-child(6),
+.Tab:first-child:nth-last-child(6) ~ .Tab {
+	width: 16.66%;
+}
+
+.Tab:first-child:nth-last-child(7),
+.Tab:first-child:nth-last-child(7) ~ .Tab {
+	width: 14.28%;
+}
+
+.Tab:first-child:nth-last-child(8),
+.Tab:first-child:nth-last-child(8) ~ .Tab {
+	width: 12.5%;
+}
+
+.Tab:first-child:nth-last-child(9),
+.Tab:first-child:nth-last-child(9) ~ .Tab {
+	width: 11.1%;
+}
+
+.Tab:first-child:nth-last-child(10),
+.Tab:first-child:nth-last-child(10) ~ .Tab {
+	width: 10%;
+}
+
+/* #endregion */
+
+.Tab:hover{
+    cursor: pointer;
+    transform: scale(1.01);
+    background-color: rgb(92, 92, 92);
+}
+
+.Tab:active{
+    transform: scale(1.005);
+}
+
+.Tab[Opened='true']{
+    background-color: rgb(27, 27, 27);
+}
+
+/* Footer Controls */
+
+footer{
+    grid-area: Footer;
+    background: rgb(70, 70, 70);
+    padding: 1vw;
+    margin: 0.6vw;
+    display: flex;
+}
+
+.FooterControl{
+    width: 48.4vw;
+    padding: 1vw;
+    display: inline-block;
+}

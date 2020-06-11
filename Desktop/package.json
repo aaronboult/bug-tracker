@@ -1,0 +1,49 @@
+{
+    "name": "bug-tracker",
+    "description": "This program tracks bugs and statuses across projects.",
+    "version": "1.0.0",
+    "author": "Aaron Boult",
+    "license": "ISC",
+    "main": "main.js",
+    "scripts": {
+        "dev": "electron . --dev",
+        "open": "electron .",
+        "build": "electron-packager . \"Bug Tracker\" --platform=win32 --arch=x64 --asar",
+
+        "apply-build-config": "npm run set-icon && npm run set-file-version && npm run set-product-version && npm run set-auth-level && npm run set-comments && npm run set-company-name && npm run set-description && npm run set-copyright && npm run set-product-name",
+
+        "set-icon": "rcedit \"Bug Tracker-win32-x64/Bug Tracker.exe\" --set-icon \"../Icon/layered_icon.ico\"",
+        "set-file-version": "rcedit \"Bug Tracker-win32-x64/Bug Tracker.exe\" --set-file-version \"1.0.0\"",
+        "set-product-version": "rcedit \"Bug Tracker-win32-x64/Bug Tracker.exe\" --set-product-version \"1.0.0\"",
+        "set-auth-level": "rcedit \"Bug Tracker-win32-x64/Bug Tracker.exe\" --set-requested-execution-level \"asInvoker\"",
+        "set-comments": "rcedit \"Bug Tracker-win32-x64/Bug Tracker.exe\" --set-version-string \"Comments\" \"Desktop version; https://github.com/aaronboult/bug-tracker\"",
+        "set-company-name": "rcedit \"Bug Tracker-win32-x64/Bug Tracker.exe\" --set-version-string \"CompanyName\" \"Aaron Boult\"",
+        "set-description": "rcedit \"Bug Tracker-win32-x64/Bug Tracker.exe\" --set-version-string \"FileDescription\" \"Track bugs, tasks and information across projects and subsystems\"",
+        "set-copyright": "rcedit \"Bug Tracker-win32-x64/Bug Tracker.exe\" --set-version-string \"LegalCopyright\" \"Copyright © 2020 Aaron Boult\"",
+        "set-product-name": "rcedit \"Bug Tracker-win32-x64/Bug Tracker.exe\" --set-version-string \"ProductName\" \"Bug Tracker\""
+    },
+    "files": [
+        "build/icon.ico"
+    ],
+    "devDependencies": {
+        "electron": "^8.1.1",
+        "electron-builder": "^22.4.1",
+        "electron-rebuild": "^1.10.1"
+    },
+    "build": {
+        "appId": "com.aaronboult.bugtracker",
+        "productName": "Bug Tracker",
+        "copyright": "Copyright © 2020 Aaron Boult",
+        "target": "NSIS",
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "installerIcon": "build/icon.ico"
+        }
+    },
+    "dependencies": {
+        "asar": "^3.0.3",
+        "jquery": "^3.5.1",
+        "request": "^2.88.2"
+    }
+}
